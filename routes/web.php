@@ -19,10 +19,6 @@ Route::get('/about', function () {
     return 'CMS from course at <a href="https://www.udemy.com/course/php-with-laravel-for-beginners-become-a-master-in-laravel/">PHP with Laravel for beginners - Become a Master in Laravel</a>';
 });
 
-Route::get('/post/{id}', function ($id) {
-    return 'Post #' . $id;
-});
-
 Route::get('admin', [
     'as' => 'admin.home',
     function () {
@@ -30,6 +26,8 @@ Route::get('admin', [
         return $url;
     }
 ]);
+
+Route::resource('posts', 'PostsController');
 
 // Route::get('/logout', 'Auth\LoginController@logout');
 
