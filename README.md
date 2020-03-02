@@ -15,3 +15,11 @@ php artisan make:controller AnyController
 php artisan make:controller --resource PostsController
 ```
 
+### Migrations
+
+```bash
+php artisan migrate
+```
+
+
+
