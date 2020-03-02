@@ -1,6 +1,6 @@
 # laravel-course
 
-## Artisan shortcuts
+## Artisan shortcuts
 
 ### Routes
 

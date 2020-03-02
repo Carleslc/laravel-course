@@ -16,7 +16,11 @@ Route::get('/', function () {
 });
 
 Route::get('/about', function () {
-    return 'CMS from course at <a href="https://www.udemy.com/course/php-with-laravel-for-beginners-become-a-master-in-laravel/">PHP with Laravel for beginners - Become a Master in Laravel</a>';
+    $links = [
+        '@Carleslc' => "https://github.com/Carleslc/",
+        'Source (GitHub)' => "https://github.com/Carleslc/laravel-course"
+    ];
+    return view('about', compact('links'));
 });
 
 Route::get('admin', [

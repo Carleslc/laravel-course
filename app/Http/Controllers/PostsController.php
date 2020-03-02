@@ -45,7 +45,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return 'Post #' . $id;
+        // return "Post" . $id;
+        // return view('post')->with('id', $id);
+        return view('post', compact('id'));
     }
 
     /**
