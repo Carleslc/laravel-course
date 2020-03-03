@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <p>Post #{{$id}}</p>
+<h2>(#{{$id}}) {{$post->title}}</h2>
+<p>{{$post->content}}</p>
 @endsection

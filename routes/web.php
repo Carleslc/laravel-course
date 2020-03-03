@@ -33,6 +33,10 @@ Route::get('admin', [
 
 Route::resource('posts', 'PostsController');
 
+// Route::get('/testInsert', function () {
+//     DB::insert('INSERT INTO posts(title, content) VALUES (?, ?)', ["My title", "The content"]);
+// });
+
 // Route::get('/logout', 'Auth\LoginController@logout');
 
 /*

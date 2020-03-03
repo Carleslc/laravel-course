@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -13,7 +14,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return "Posts";
+        // Post::withTrashed()->all();
+        return Post::all();
     }
 
     /**
@@ -34,7 +36,12 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $post = new Post;
+        // $post->title = 'new title';
+        // $post->content = 'my content';
+        // $post->save();
+
+        // Post::create(['title' => 'new title', 'content' => 'my content']);
     }
 
     /**
@@ -47,7 +54,10 @@ class PostsController extends Controller
     {
         // return "Post" . $id;
         // return view('post')->with('id', $id);
-        return view('post', compact('id'));
+        // $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
+        // $post = Post::where('id', $id);
+        $post = Post::find($id);
+        return view('post', compact('id', 'post'));
     }
 
     /**
@@ -70,7 +80,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Post::find($id)->update(['title' => 'new title', 'content' => 'my content']);
     }
 
     /**
@@ -81,6 +91,9 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Post::find($id)->delete();
+        // Post::destroy($id);
+        // Post::onlyTrashed()->all()->restore();
+        // Post::onlyTrashed()->all()->forceDelete();
     }
 }
