@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // Post::withTrashed()->all();
-        return Post::all();
+        return User::all();
     }
 
     /**
@@ -25,7 +24,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        User::create(['name' => 'Test', 'email' => 'test@example.com', 'password' => 'test']);
     }
 
     /**
@@ -36,12 +35,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        // $post = new Post;
-        // $post->title = 'new title';
-        // $post->content = 'my content';
-        // $post->save();
-
-        // Post::create(['title' => 'new title', 'content' => 'my content']);
+        //
     }
 
     /**
@@ -52,12 +46,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        // return "Post" . $id;
-        // return view('post')->with('id', $id);
-        // $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
-        // $post = Post::where('id', $id);
-        $post = Post::find($id);
-        return view('post', compact('id', 'post'));
+        return User::findOrFail($id);
     }
 
     /**
@@ -80,7 +69,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Post::find($id)->update(['title' => 'new title', 'content' => 'my content']);
+        //
     }
 
     /**
@@ -91,9 +80,6 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        // Post::find($id)->delete();
-        // Post::destroy($id);
-        // Post::onlyTrashed()->all()->restore();
-        // Post::onlyTrashed()->all()->forceDelete();
+        User::destroy($id);
     }
 }

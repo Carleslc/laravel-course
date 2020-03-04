@@ -11,6 +11,8 @@
 |
 */
 
+use App\User;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,11 +33,16 @@ Route::get('admin', [
     }
 ]);
 
-Route::resource('posts', 'PostsController');
+Route::resource('users', 'UserController');
+Route::resource('posts', 'PostController');
+Route::resource('users.posts', 'PostController');
 
-// Route::get('/testInsert', function () {
-//     DB::insert('INSERT INTO posts(title, content) VALUES (?, ?)', ["My title", "The content"]);
-// });
+Route::get('/users/{id}/roles', function($id) {
+    $user = User::findOrFail($id);
+    foreach ($user->roles as $role) {
+        echo $role->name . '</br>';
+    }
+});
 
 // Route::get('/logout', 'Auth\LoginController@logout');
 
