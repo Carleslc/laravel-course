@@ -16,8 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        // Post::withTrashed()->all();
-        return Post::all();
+        return Post::withTrashed()->get();
     }
 
     /**
@@ -36,7 +35,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $user_id)
+    public function store(Request $request, $userId)
     {
         // DB::insert('INSERT INTO posts(title, content) VALUES (?, ?)', ["My title", "The content"]);
 
@@ -47,7 +46,7 @@ class PostController extends Controller
 
         // Post::create(['title' => 'new title', 'content' => 'my content']);
 
-        $user = User::findOrFail($user_id);
+        $user = User::findOrFail($userId);
         $user->posts()->create($request->all());
     }
 
@@ -63,7 +62,10 @@ class PostController extends Controller
         // return view('post')->with('id', $id);
         // $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
         // $post = Post::where('id', $id);
-        $post = Post::find($id);
+        $post = Post::withTrashed()->findOrFail($id);
+        if ($post->trashed()) {
+            return 'Archived';
+        }
         return view('post', compact('id', 'post'));
     }
 
@@ -100,7 +102,7 @@ class PostController extends Controller
     {
         // Post::find($id)->delete();
         // Post::destroy($id);
-        // Post::onlyTrashed()->all()->restore();
-        // Post::onlyTrashed()->all()->forceDelete();
+        // Post::onlyTrashed()->get()->restore();
+        // Post::onlyTrashed()->get()->forceDelete();
     }
 }

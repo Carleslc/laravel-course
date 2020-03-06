@@ -11,6 +11,8 @@
 |
 */
 
+use App\Post;
+use App\Role;
 use App\User;
 
 Route::get('/', function () {
@@ -35,12 +37,30 @@ Route::get('admin', [
 
 Route::resource('users', 'UserController');
 Route::resource('posts', 'PostController');
-Route::resource('users.posts', 'PostController');
 
-Route::get('/users/{id}/roles', function($id) {
-    $user = User::findOrFail($id);
+Route::get('/users/{id}/address', function($userId) {
+    return User::findOrFail($userId)->address;
+});
+
+Route::get('/users/{id}/posts', function($userId) {
+    return User::findOrFail($userId)->posts;
+});
+
+Route::get('/roles', function() {
+    return Role::all();
+});
+
+Route::get('/users/{id}/roles', function($userId) {
+    $user = User::findOrFail($userId);
     foreach ($user->roles as $role) {
         echo $role->name . '</br>';
+    }
+});
+
+Route::get('/roles/{id}/users', function($userId) {
+    $role = Role::findOrFail($userId);
+    foreach ($role->users as $user) {
+        echo $user->name . '</br>';
     }
 });
 

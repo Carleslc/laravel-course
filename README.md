@@ -53,3 +53,9 @@ php artisan migrate:refresh # reset + migrate
 php artisan make:model Post -m # -m stands for migration
 ```
 
+#### Tinker
+
+```bash
+php artisan tinker
+```
+
