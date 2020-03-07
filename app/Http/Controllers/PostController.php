@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
@@ -14,9 +15,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::withTrashed()->get();
+        if ($request->has('raw')) {
+            return Post::withTrashed()->get();
+        }
+        return view('posts.index')->with('posts', Post::all())->with('archive', Post::onlyTrashed()->get());
     }
 
     /**
@@ -26,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -35,7 +39,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $userId)
+    public function store(PostRequest $request)
     {
         // DB::insert('INSERT INTO posts(title, content) VALUES (?, ?)', ["My title", "The content"]);
 
@@ -46,8 +50,20 @@ class PostController extends Controller
 
         // Post::create(['title' => 'new title', 'content' => 'my content']);
 
-        $user = User::findOrFail($userId);
-        $user->posts()->create($request->all());
+        // $user = User::findOrFail($userId);
+        // $user->posts()->create($request->all());
+        // return redirect('/posts');
+
+        // Included in PostRequest:
+        // $this->validate($request, [
+        //     'title' => 'required|max:50',
+        //     'content' => 'required'
+        // ]);
+
+        $post = new Post($request->all());
+        $post->user()->associate(User::findOrFail(1));
+        $post->save();
+        return redirect('/posts/' . $post->id);
     }
 
     /**
@@ -63,10 +79,7 @@ class PostController extends Controller
         // $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
         // $post = Post::where('id', $id);
         $post = Post::withTrashed()->findOrFail($id);
-        if ($post->trashed()) {
-            return 'Archived';
-        }
-        return view('post', compact('id', 'post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -75,9 +88,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(PostRequest $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -89,7 +103,9 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Post::find($id)->update(['title' => 'new title', 'content' => 'my content']);
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+        return redirect('/posts/' . $post->id);
     }
 
     /**
@@ -100,9 +116,22 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        // Post::find($id)->delete();
         // Post::destroy($id);
         // Post::onlyTrashed()->get()->restore();
-        // Post::onlyTrashed()->get()->forceDelete();
+        $post = Post::withTrashed()->findOrFail($id);
+        if ($post->trashed()) {
+            $post->forceDelete();
+            return redirect('/posts');
+        } else {
+            $post->delete();
+            return redirect('/posts/' . $post->id);
+        }
+    }
+
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->findOrFail($id);
+        $post->restore();
+        return redirect('/posts/' . $post->id);
     }
 }

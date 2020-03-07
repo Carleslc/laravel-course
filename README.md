@@ -59,3 +59,8 @@ php artisan make:model Post -m # -m stands for migration
 php artisan tinker
 ```
 
+### [Validations](https://laravel.com/docs/master/validation)
+
+```bash
+php artisan make:request PostRequest
+```
