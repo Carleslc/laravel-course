@@ -53,6 +53,8 @@ php artisan migrate:refresh # reset + migrate
 php artisan make:model Post -m # -m stands for migration
 ```
 
+**[Accessors and Mutators](https://laravel.com/docs/master/eloquent-mutators)**
+
 #### Tinker
 
 ```bash
@@ -64,3 +66,17 @@ php artisan tinker
 ```bash
 php artisan make:request PostRequest
 ```
+
+### [Authentication](https://laravel.com/docs/6.x/authentication)
+
+```php
+composer require laravel/ui "^1.0" --dev
+php artisan ui vue --auth
+```
+
+### [Authorization](https://laravel.com/docs/6.x/authorization)
+
+```bash
+php artisan make:policy PostPolicy --model=Post
+```
+

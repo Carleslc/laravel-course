@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<button type="button" onclick="window.location='{{route('posts.create')}}'">New post</button>
+@auth
+<button type="button" class="btn btn-primary" onclick="window.location='{{route('posts.create')}}'">New post</button>
+@endauth
 <ul>
     @foreach ($posts as $post)
         <li>

@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use App\User;
+use Auth;
+use Gate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +27,7 @@ class PostController extends Controller
         if ($request->has('raw')) {
             return Post::withTrashed()->get();
         }
-        return view('posts.index')->with('posts', Post::all())->with('archive', Post::onlyTrashed()->get());
+        return view('posts.index')->with('posts', Post::all())->with('archive', Post::onlyTrashed()->latest()->get());
     }
 
     /**
@@ -43,13 +50,6 @@ class PostController extends Controller
     {
         // DB::insert('INSERT INTO posts(title, content) VALUES (?, ?)', ["My title", "The content"]);
 
-        // $post = new Post;
-        // $post->title = "My title";
-        // $post->content = "The content";
-        // $post->save();
-
-        // Post::create(['title' => 'new title', 'content' => 'my content']);
-
         // $user = User::findOrFail($userId);
         // $user->posts()->create($request->all());
         // return redirect('/posts');
@@ -61,9 +61,19 @@ class PostController extends Controller
         // ]);
 
         $post = new Post($request->all());
-        $post->user()->associate(User::findOrFail(1));
+        $this->setHeaderImage($request, $post);
+        $post->user()->associate(Auth::user());
         $post->save();
         return redirect('/posts/' . $post->id);
+    }
+
+    private function setHeaderImage(PostRequest $request, Post $post) {
+        $header = $request->file('header');
+        if ($header) {
+            $name = $header->getClientOriginalName();
+            $header->move('images', $name);
+            $post->header = $name;
+        }
     }
 
     /**
@@ -79,7 +89,8 @@ class PostController extends Controller
         // $post = DB::select('SELECT * FROM posts WHERE id = ?', [$id]);
         // $post = Post::where('id', $id);
         $post = Post::withTrashed()->findOrFail($id);
-        return view('posts.show', compact('post'));
+        $owner = User::find($post->user_id);
+        return view('posts.show', compact('post', 'owner'));
     }
 
     /**
@@ -88,9 +99,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(PostRequest $request, $id)
+    public function edit($id)
     {
         $post = Post::findOrFail($id);
+        Gate::authorize('update', $post);
         return view('posts.edit', compact('post'));
     }
 
@@ -101,10 +113,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->update($request->all());
+        Gate::authorize('update', $post);
+        $this->setHeaderImage($request, $post);
+        $post->update($request->except('header'));
         return redirect('/posts/' . $post->id);
     }
 
@@ -118,7 +132,10 @@ class PostController extends Controller
     {
         // Post::destroy($id);
         // Post::onlyTrashed()->get()->restore();
+
         $post = Post::withTrashed()->findOrFail($id);
+        Gate::authorize('update', $post);
+
         if ($post->trashed()) {
             $post->forceDelete();
             return redirect('/posts');
@@ -131,6 +148,8 @@ class PostController extends Controller
     public function restore($id)
     {
         $post = Post::withTrashed()->findOrFail($id);
+        Gate::authorize('update', $post);
+
         $post->restore();
         return redirect('/posts/' . $post->id);
     }

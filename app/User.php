@@ -37,6 +37,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Accessor (modify name property)
+    /*public function getNameAttribute($value) {
+        return strtoupper($value);
+    }
+
+    // Mutator (modify name value on save in database)
+    public function setNameAttribute($value) {
+        $this->attributes['name'] = $this->getNameAttribute($value);
+    }*/
+
     public function address() {
         return $this->hasOne('App\Address');
     }
@@ -47,5 +57,13 @@ class User extends Authenticatable
 
     public function roles() {
         return $this->belongsToMany('App\Role'); // role_user (alphabetical singular snake_case)
+    }
+
+    public function hasRole($role) {
+        return $this->roles->where('name', $role)->first() != null;
+    }
+
+    public function isAdmin() {
+        return $this->hasRole('admin');
     }
 }
