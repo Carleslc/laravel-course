@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('raw')) {
+        if ($request->expectsJson() || $request->has('raw')) {
             return Post::withTrashed()->get();
         }
         return view('posts.index')->with('posts', Post::all())->with('archive', Post::onlyTrashed()->latest()->get());
