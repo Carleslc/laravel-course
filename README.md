@@ -18,7 +18,11 @@ Alt + Click # Go to view/controller
 
 ## Laravel
 
+**New project**: `laravel new NAME`
+
 **[Blade](https://laravel.com/docs/master/blade)**
+
+**[Sessions](https://laravel.com/docs/master/session)**
 
 ### [Routes](https://laravel.com/docs/master/routing)
 
@@ -77,6 +81,21 @@ php artisan ui vue --auth
 ### [Authorization](https://laravel.com/docs/6.x/authorization)
 
 ```bash
-php artisan make:policy PostPolicy --model=Post
+php artisan make:policy PostPolicy --model=Post # Usage with 'can' middleware
+php artisan make:middleware RoleMiddleware # Fresh new middleware
 ```
 
+#### Maintenance mode
+
+```bash
+php artisan down
+php artisan up
+```
+
+### [SCSS](https://laravel.com/docs/master/mix#sass)
+
+```bash
+# resources/sass to public/css (as per webpack.mix.js)
+npm run dev
+npm run watch
+```
