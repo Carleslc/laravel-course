@@ -24,6 +24,13 @@ Alt + Click # Go to view/controller
 
 **[Sessions](https://laravel.com/docs/master/session)**
 
+### IDE Helper
+
+```bash
+composer require --dev barryvdh/laravel-ide-helper
+php artisan ide-helper:generate
+```
+
 ### [Routes](https://laravel.com/docs/master/routing)
 
 ```bash
