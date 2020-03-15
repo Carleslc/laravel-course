@@ -18,7 +18,7 @@ Alt + Click # Go to view/controller
 
 ## Laravel
 
-**New project**: `laravel new NAME`
+**New project**: `laravel new [--auth] NAME`
 
 **[Blade](https://laravel.com/docs/master/blade)**
 
