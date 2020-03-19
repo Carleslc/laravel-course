@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'is_active'
+        'name', 'email', 'password', 'role_id', 'is_active', 'avatar'
     ];
 
     /**
@@ -39,5 +39,21 @@ class User extends Authenticatable
 
     public function role() {
         return $this->belongsTo('App\Role');
+    }
+
+    public function isAdmin() {
+        return $this->role ? $this->role->name == 'admin' : false;
+    }
+
+    public function avatar() {
+        return Storage::url('avatars/' . $this->id);
+    }
+
+    public function hasAvatar() {
+        return Storage::disk('public')->exists('avatars/' . $this->id);
+    }
+
+    public static function getDefaultAvatar() {
+        return Storage::url('avatars/default.png');
     }
 }
