@@ -7,14 +7,10 @@ use App\Http\Requests\UserEditRequest;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Storage;
 
 class AdminUsersController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'can:viewAdmin,App\User']); // AdminPolicy
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -78,17 +74,6 @@ class AdminUsersController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -126,6 +111,8 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
+        Storage::disk('public')->delete('avatars/' . $id);
+        session()->flash('status', "User {$id} deleted");
         return redirect(route('users.index'));
     }
 }

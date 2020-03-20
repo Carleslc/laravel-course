@@ -11,13 +11,17 @@ class AdminPolicy
 
     public function before($user, $ability)
     {
-        if ($user->isAdmin()) {
+        if ($this->isActiveAdmin($user)) {
             return true;
         }
     }
 
     public function viewAdmin(User $user)
     {
-        return $user->isAdmin();
+        return $this->isActiveAdmin($user);
+    }
+
+    private function isActiveAdmin($user) {
+        return $user->isAdmin() && $user->is_active;
     }
 }
