@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
+use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminPostsController extends Controller
@@ -13,7 +16,8 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index');
+        $posts = Post::all();
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -23,7 +27,8 @@ class AdminPostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $users = User::pluck('name', 'id')->all();
+        return view('admin.posts.create', compact('users'));
     }
 
     /**
@@ -32,9 +37,18 @@ class AdminPostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $post = Post::create($request->except('header'));
+        $this->saveHeader($request, $post);
+        return redirect(route('posts.index'));
+    }
+
+    private function saveHeader(Request $request, Post $post) {
+        $header = $request->file('header');
+        if ($header) {
+            $header->storeAs('headers', $post->id, 'public');
+        }
     }
 
     /**

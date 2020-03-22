@@ -349,7 +349,7 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('js/libs.js')}}" defer></script>
+<script src="{{asset('js/libs.js')}}"></script>
 
 @yield('footer')
 

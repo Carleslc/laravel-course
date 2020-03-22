@@ -26,8 +26,8 @@ mix.js("resources/js/app.js", "public/js")
     )
     .scripts(
         [
-            "resources/js/libs/bootstrap.js",
             "resources/js/libs/jquery.js",
+            "resources/js/libs/bootstrap.js",
             "resources/js/libs/metisMenu.js",
             "resources/js/libs/sb-admin-2.js",
             "resources/js/libs/scripts.js"
