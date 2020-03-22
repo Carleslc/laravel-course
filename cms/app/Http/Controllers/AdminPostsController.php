@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use App\User;
+//use App\Category;
+use Auth;
 use Illuminate\Http\Request;
+use Storage;
 
 class AdminPostsController extends Controller
 {
@@ -27,8 +30,15 @@ class AdminPostsController extends Controller
      */
     public function create()
     {
-        $users = User::pluck('name', 'id')->all();
-        return view('admin.posts.create', compact('users'));
+        $categories = $this->getCategories();
+        return view('admin.posts.create', compact('categories'));
+    }
+
+    private function getCategories() {
+        return ['','ONE','TWO'];
+        /*$categories = Category::pluck('name', 'id')->all();
+        array_unshift($categories, ''); // prepend
+        return $categories;*/
     }
 
     /**
@@ -39,7 +49,12 @@ class AdminPostsController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = Post::create($request->except('header'));
+        if ($request->category_id == 0) {
+            $request->request->set('category_id', null);
+        }
+        $post = new Post($request->except('header'));
+        $post->author()->associate(Auth::user());
+        $post->save();
         $this->saveHeader($request, $post);
         return redirect(route('posts.index'));
     }
@@ -82,7 +97,13 @@ class AdminPostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->category_id == 0) {
+            $request->request->set('category_id', null);
+        }
+        $post = Post::findOrFail($id);
+        $post->update($request->except('header'));
+        $this->saveHeader($request, $post);
+        return redirect(route('posts.index'));
     }
 
     /**
@@ -93,6 +114,9 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        Storage::disk('public')->delete('headers/' . $id);
+        session()->flash('status', "Post {$id} deleted");
+        return redirect(route('posts.index'));
     }
 }
