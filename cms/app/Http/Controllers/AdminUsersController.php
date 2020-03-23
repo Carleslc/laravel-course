@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\StorageHelper;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserEditRequest;
 use App\Role;
@@ -49,6 +50,7 @@ class AdminUsersController extends Controller
     {
         $request = $this->processedRequest($request);
         $user = User::create($request->except('avatar'));
+        StorageHelper::saveImage($request, 'avatar', 'avatars', $user->id);
         $this->saveAvatar($request, $user);
         return redirect(route('users.index'));
     }
@@ -64,13 +66,6 @@ class AdminUsersController extends Controller
         }
         $request->request->set('is_active', $request->input('is_active', false));
         return $request;
-    }
-
-    private function saveAvatar(Request $request, User $user) {
-        $avatar = $request->file('avatar');
-        if ($avatar) {
-            $avatar->storeAs('avatars', $user->id, 'public');
-        }
     }
 
     /**
@@ -97,7 +92,7 @@ class AdminUsersController extends Controller
     {
         $user = User::findOrFail($id);
         $request = $this->processedRequest($request);
-        $this->saveAvatar($request, $user);
+        StorageHelper::saveImage($request, 'avatar', 'avatars', $id);
         $user->update($request->except('avatar'));
         return redirect(route('users.index'));
     }
@@ -111,7 +106,7 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        Storage::disk('public')->delete('avatars/' . $id);
+        StorageHelper::deleteImage('avatars', $id);
         session()->flash('status', "User {$id} deleted");
         return redirect(route('users.index'));
     }

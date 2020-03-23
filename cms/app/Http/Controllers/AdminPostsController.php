@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\StorageHelper;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use App\User;
@@ -55,15 +56,8 @@ class AdminPostsController extends Controller
         $post = new Post($request->except('header'));
         $post->author()->associate(Auth::user());
         $post->save();
-        $this->saveHeader($request, $post);
+        StorageHelper::saveImage($request, 'header', 'headers', $post->id);
         return redirect(route('posts.index'));
-    }
-
-    private function saveHeader(Request $request, Post $post) {
-        $header = $request->file('header');
-        if ($header) {
-            $header->storeAs('headers', $post->id, 'public');
-        }
     }
 
     /**
@@ -102,7 +96,7 @@ class AdminPostsController extends Controller
         }
         $post = Post::findOrFail($id);
         $post->update($request->except('header'));
-        $this->saveHeader($request, $post);
+        StorageHelper::saveImage($request, 'header', 'headers', $id);
         return redirect(route('posts.index'));
     }
 
@@ -115,7 +109,7 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         Post::destroy($id);
-        Storage::disk('public')->delete('headers/' . $id);
+        StorageHelper::deleteImage('headers', $id);
         session()->flash('status', "Post {$id} deleted");
         return redirect(route('posts.index'));
     }

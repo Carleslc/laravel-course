@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Storage;
+use App\Helpers\StorageHelper;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -50,14 +50,6 @@ class User extends Authenticatable
     }
 
     public function avatar() {
-        return Storage::url('avatars/' . $this->id);
-    }
-
-    public function hasAvatar() {
-        return Storage::disk('public')->exists('avatars/' . $this->id);
-    }
-
-    public static function getDefaultAvatar() {
-        return Storage::url('avatars/default.png');
+        return StorageHelper::getImage('avatars', $this->id);
     }
 }

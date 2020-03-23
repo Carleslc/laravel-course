@@ -5,6 +5,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Header</th>
                 <th>Title</th>
                 <th>Content</th>
                 <th>Author</th>
@@ -14,6 +15,7 @@
         <tbody>
             @foreach ($posts as $post)
                 <tr>
+                    <td><img height="50" src="{{$post->header()}}"></td>
                     <td><a href="{{route('posts.edit', $post->id)}}">{{$post->title}}</a></td>
                     <td>{{$post->content}}</td>
                     <td>{{$post->author->name}}</td>
