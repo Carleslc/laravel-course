@@ -17,7 +17,7 @@
                 <tr>
                     <td><img height="50" src="{{$post->header()}}"></td>
                     <td><a href="{{route('posts.edit', $post->id)}}">{{$post->title}}</a></td>
-                    <td>{{$post->content}}</td>
+                    <td>{{Str::of($post->content)->limit(30)}}</td>
                     <td>{{$post->author->name}}</td>
                     <td>{{$post->category ? $post->category->name : ''}}</td>
                 </tr>

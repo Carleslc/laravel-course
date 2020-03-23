@@ -107,7 +107,7 @@ class AdminUsersController extends Controller
     {
         User::destroy($id);
         StorageHelper::deleteImage('avatars', $id);
-        session()->flash('status', "User {$id} deleted");
+        session()->flash('status', "User $id deleted");
         return redirect(route('users.index'));
     }
 }

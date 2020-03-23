@@ -4,7 +4,7 @@
     <h1>Edit User</h1><br>
 
     <div class="col-sm-3">
-        <img src="{{$user->hasAvatar() ? $user->avatar() : $user->getDefaultAvatar()}}" alt="Avatar" class="img-responsive img-rounded">
+        <img src="{{$user->avatar()}}" alt="Avatar" class="img-responsive img-rounded">
     </div>
 
     <div class="col-sm-9">

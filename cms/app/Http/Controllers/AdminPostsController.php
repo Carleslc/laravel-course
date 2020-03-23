@@ -76,8 +76,9 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
+        $post = Post::findOrFail($id);
         $categories = $this->getCategories();
-        return view('admin.posts.edit', compact('categories'));
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -108,7 +109,7 @@ class AdminPostsController extends Controller
     {
         Post::destroy($id);
         StorageHelper::deleteImage('headers', $id);
-        session()->flash('status', "Post {$id} deleted");
+        session()->flash('status', "Post $id deleted");
         return redirect(route('posts.index'));
     }
 }

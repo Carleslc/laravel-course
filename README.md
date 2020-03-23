@@ -56,7 +56,7 @@ php artisan migrate:status
 php artisan migrate:refresh # reset + migrate
 ```
 
-### [Eloquent ORM](https://laravel.com/docs/master/eloquent)
+#### [Eloquent ORM](https://laravel.com/docs/master/eloquent)
 
 #### Model
 
