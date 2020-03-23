@@ -19,7 +19,7 @@
                     <td><a href="{{route('posts.edit', $post->id)}}">{{$post->title}}</a></td>
                     <td>{{$post->content}}</td>
                     <td>{{$post->author->name}}</td>
-                    <td>{{$post->category_id ? $post->category_id : ''}}</td>
+                    <td>{{$post->category ? $post->category->name : ''}}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Helpers\StorageHelper;
 use App\Http\Requests\PostRequest;
 use App\Post;
-use App\User;
-//use App\Category;
 use Auth;
 use Illuminate\Http\Request;
-use Storage;
 
 class AdminPostsController extends Controller
 {
@@ -36,10 +34,9 @@ class AdminPostsController extends Controller
     }
 
     private function getCategories() {
-        return ['','ONE','TWO'];
-        /*$categories = Category::pluck('name', 'id')->all();
+        $categories = Category::pluck('name', 'id')->all();
         array_unshift($categories, ''); // prepend
-        return $categories;*/
+        return $categories;
     }
 
     /**
@@ -79,7 +76,8 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.posts.edit');
+        $categories = $this->getCategories();
+        return view('admin.posts.edit', compact('categories'));
     }
 
     /**
