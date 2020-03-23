@@ -27,4 +27,6 @@ Route::group(['middleware' => ['auth', 'can:viewAdmin,App\User']], function() {
     Route::resource('admin/users', 'AdminUsersController')->except('show');
 
     Route::resource('admin/posts', 'AdminPostsController')->except('show');
+
+    Route::resource('admin/categories', 'AdminCategoriesController')->except(['show', 'edit', 'update']);
 });

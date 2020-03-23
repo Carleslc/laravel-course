@@ -34,8 +34,8 @@ class AdminPostsController extends Controller
     }
 
     private function getCategories() {
-        $categories = Category::pluck('name', 'id')->all();
-        array_unshift($categories, ''); // prepend
+        $categories = Category::pluck('name', 'id');
+        $categories->prepend('', 0);
         return $categories;
     }
 
@@ -58,17 +58,6 @@ class AdminPostsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -88,7 +77,7 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         if ($request->category_id == 0) {
             $request->request->set('category_id', null);

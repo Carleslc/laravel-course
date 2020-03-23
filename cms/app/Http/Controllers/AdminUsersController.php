@@ -35,8 +35,8 @@ class AdminUsersController extends Controller
     }
 
     private function getRoles() {
-        $roles = Role::pluck('name', 'id')->all();
-        array_unshift($roles, ''); // prepend
+        $roles = Role::pluck('name', 'id');
+        $roles->prepend('', 0);
         return $roles;
     }
 
