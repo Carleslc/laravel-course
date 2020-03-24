@@ -29,4 +29,8 @@ Route::group(['middleware' => ['auth', 'can:viewAdmin,App\User']], function() {
     Route::resource('admin/posts', 'AdminPostsController')->except('show');
 
     Route::resource('admin/categories', 'AdminCategoriesController')->except(['show', 'edit', 'update']);
+
+    Route::get('admin/media')->name('media.index')->uses('AdminMediaController@index');
+    Route::put('admin/media')->name('media.upload')->uses('AdminMediaController@upload');
+    Route::delete('admin/media')->name('media.destroy')->uses('AdminMediaController@destroy');
 });
