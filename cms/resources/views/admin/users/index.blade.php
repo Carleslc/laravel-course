@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
+@section('header')
+    Users
+@endsection
+
 @section('content')
-    <h1>Users</h1>
     <table class="table">
         <thead>
             <tr>

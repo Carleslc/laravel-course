@@ -19,8 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/posts/{id}', 'AdminPostsController@show')->name('posts.show');
+
 Route::group(['middleware' => ['auth', 'can:viewAdmin,App\User']], function() {
-    Route::get('/admin', function () {
+    Route::get('/admin', function() {
         return view('admin.index');
     })->name('admin');
 
@@ -32,4 +34,7 @@ Route::group(['middleware' => ['auth', 'can:viewAdmin,App\User']], function() {
 
     Route::resource('admin/media', 'AdminMediaController')->only(['index', 'create', 'store']);
     Route::delete('admin/media', 'AdminMediaController@destroy');
+
+    Route::resource('admin/comments', 'CommentsController')->except(['show', 'edit']);
+    Route::resource('admin/comments/replies', 'CommentRepliesController')->except(['show', 'edit']);
 });

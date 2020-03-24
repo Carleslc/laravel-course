@@ -23,6 +23,22 @@ class AdminPostsController extends Controller
     }
 
     /**
+     * Show the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        $categories = Category::pluck('name');
+        if (!Auth::check()) {
+            session()->put('redirectTo', url()->current());
+        }
+        return view('post', compact('post', 'categories'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

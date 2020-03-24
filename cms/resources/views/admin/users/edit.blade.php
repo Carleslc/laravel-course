@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 
-@section('content')
-    <h1>Edit User</h1><br>
+@section('header')
+    Edit User
+@endsection
 
+@section('content')
     <div class="col-sm-3">
         <img src="{{$user->avatar()}}" alt="Avatar" class="img-responsive img-rounded">
     </div>

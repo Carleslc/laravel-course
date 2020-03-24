@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 
-@section('content')
-    <h1>Create Post</h1><br>
+@section('header')
+    Create Post
+@endsection
 
+@section('content')
     {!! Form::open(['method' => 'POST', 'action' => 'AdminPostsController@store', 'files' => true]) !!}
 
     <div class="form-group">
@@ -13,7 +15,7 @@
         {!! Form::label('header', 'Header') !!}
         {!! Form::file('header', ['class' => 'form-control']) !!}
         {!! Form::label('content', 'Content') !!}
-        {!! Form::textarea('content', '', ['rows' => 3, 'class' => 'form-control']) !!}
+        {!! Form::textarea('content', '', ['rows' => 10, 'class' => 'form-control']) !!}
     </div>
     <br>
     <div class="form-group">

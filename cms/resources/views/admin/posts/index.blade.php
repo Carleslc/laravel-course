@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
+@section('header')
+    Posts
+@endsection
+
 @section('content')
-    <h1>Posts</h1>
     <table class="table">
         <thead>
             <tr>
@@ -20,6 +23,7 @@
                     <td>{{Str::of($post->content)->limit(30)}}</td>
                     <td>{{$post->author->name}}</td>
                     <td>{{$post->category ? $post->category->name : ''}}</td>
+                    <td><a href="{{route('posts.show', $post->id)}}">View Post</a></td>
                 </tr>
             @endforeach
         </tbody>

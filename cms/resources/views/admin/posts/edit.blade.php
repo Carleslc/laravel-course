@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 
-@section('content')
-    <h1>Edit Post</h1><br>
+@section('header')
+    Edit Post
+@endsection
 
+@section('content')
     <div class="col-sm-3">
         <img src="{{$post->header()}}" alt="Header" class="img-responsive img-rounded">
     </div>

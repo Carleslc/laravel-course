@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 
-@section('content')
-    <h1>Upload Media</h1>
+@section('header')
+    Upload Media
+@endsection
 
+@section('content')
     {!! Form::open(['method' => 'POST', 'action' => 'AdminMediaController@store', 'class' => 'dropzone']) !!}
     {!! Form::close() !!}
 @endsection

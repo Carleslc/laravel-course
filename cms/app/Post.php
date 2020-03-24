@@ -22,6 +22,10 @@ class Post extends Model
         return $this->belongsTo('App\Category', 'category_id');
     }
 
+    public function comments() {
+        return $this->hasMany('App\Comment');
+    }
+
     public function header() {
         return StorageHelper::getImage('headers', $this->id);
     }
