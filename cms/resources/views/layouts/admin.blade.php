@@ -15,6 +15,8 @@
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet">
 
+    @yield('styles')
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -172,7 +174,7 @@
                             </li>
 
                             <li>
-                                <a href="{{route('media.upload')}}">Upload Media</a>
+                                <a href="{{route('media.create')}}">Upload Media</a>
                             </li>
 
                         </ul>
@@ -348,14 +350,12 @@
 </div>
 <!-- /#wrapper -->
 
+@yield('footer')
+
 <!-- jQuery -->
 <script src="{{asset('js/libs.js')}}"></script>
 
-@yield('footer')
-
-
-
-
+@yield('scripts')
 
 </body>
 
