@@ -34,7 +34,9 @@ Route::group(['middleware' => ['auth', 'can:viewAdmin,App\User']], function() {
 
     Route::resource('admin/media', 'AdminMediaController')->only(['index', 'create', 'store']);
     Route::delete('admin/media', 'AdminMediaController@destroy');
+});
 
-    Route::resource('admin/comments', 'CommentsController')->except(['show', 'edit']);
-    Route::resource('admin/comments/replies', 'CommentRepliesController')->except(['show', 'edit']);
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('admin/comments', 'CommentsController')->except(['show', 'create', 'edit']);
+    Route::resource('admin/comments/replies', 'CommentRepliesController')->except(['show', 'create', 'edit']);
 });

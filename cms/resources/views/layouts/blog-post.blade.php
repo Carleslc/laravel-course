@@ -9,12 +9,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>@yield('title', 'Blog Post')</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet">
+
+    <style>
+        body {
+            padding-top: 10px;
+        }
+        footer {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+    </style>
 
     @yield('styles')
 
@@ -29,85 +39,54 @@
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="content">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-
-            <!-- Blog Post Content Column -->
-            <div class="col-lg-8">
-
-                <!-- Blog Post -->
-                @yield('content')
-
-            </div>
-
-            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-
-                <!-- Blog Categories Well -->
-                <div class="well">
-                    <h4>Blog Categories</h4>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <ul class="list-unstyled">
-                                @yield('categories')
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.row -->
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
                 </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
+            @endif
+            <!-- Page Content -->
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2020</p>
+                <!-- Blog Post Content Column -->
+                <div class="col-lg-8">
+                    <!-- Blog Post -->
+                    @yield('content')
+                </div>
+                <!-- Blog Sidebar Widgets Column -->
+                <div class="col-md-4">
+                    <!-- Blog Categories Well -->
+                    <div class="well">
+                        <h4>Blog Categories</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled">
+                                    @yield('categories')
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                    </div>
                 </div>
             </div>
             <!-- /.row -->
-        </footer>
-
+            <hr>
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{config('app.name', 'Laravel')}}
+                        <br/><br/>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+                        <br/><br/>
+                        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </div>
+                </div>
+                <!-- /.row -->
+            </footer>
+        </div>
+        <!-- /.container -->
     </div>
-    <!-- /.container -->
 
     @yield('footer')
 

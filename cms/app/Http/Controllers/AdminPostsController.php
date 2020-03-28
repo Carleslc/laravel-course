@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Helpers\StorageHelper;
 use App\Http\Requests\PostRequest;
 use App\Post;
@@ -32,10 +33,11 @@ class AdminPostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::pluck('name');
+        $comments = $post->comments->where('is_active', true);
         if (!Auth::check()) {
             session()->put('redirectTo', url()->current());
         }
-        return view('post', compact('post', 'categories'));
+        return view('post', compact('post', 'categories', 'comments'));
     }
 
     /**

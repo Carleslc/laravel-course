@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:viewAdmin,App\User', ['except' => 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,17 +37,6 @@ class CommentsController extends Controller
         $comment->save();
         session()->flash('commentAdded', true);
         return redirect()->back();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

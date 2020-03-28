@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\CommentReply;
+use Auth;
 use Illuminate\Http\Request;
 
 class CommentRepliesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:viewAdmin,App\User', ['except' => 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,17 +20,8 @@ class CommentRepliesController extends Controller
      */
     public function index()
     {
-        return view('admin.comments.replies.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $replies = CommentReply::all()->sortByDesc('created_at');
+        return view('admin.comments.replies.index', compact('replies'));
     }
 
     /**
@@ -34,29 +32,11 @@ class CommentRepliesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $comment = new CommentReply($request->all());
+        $comment->author()->associate(Auth::user());
+        $comment->save();
+        session()->flash('commentAdded', true);
+        return redirect()->back();
     }
 
     /**
@@ -68,7 +48,11 @@ class CommentRepliesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->exists('is_active')) {
+            $request->request->set('is_active', $request->is_active == 'true');
+        }
+        CommentReply::findOrFail($id)->update($request->all());
+        return redirect(route('replies.index'));
     }
 
     /**
@@ -79,6 +63,7 @@ class CommentRepliesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CommentReply::destroy($id);
+        return redirect(route('replies.index'));
     }
 }
