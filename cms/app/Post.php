@@ -3,10 +3,13 @@
 namespace App;
 
 use App\Helpers\StorageHelper;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use Sluggable;
+
     protected $fillable = [
         'title',
         'content',
@@ -28,5 +31,13 @@ class Post extends Model
 
     public function header() {
         return StorageHelper::getImage('headers', $this->id);
+    }
+
+    public function sluggable() {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }

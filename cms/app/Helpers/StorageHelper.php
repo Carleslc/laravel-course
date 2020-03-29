@@ -7,9 +7,12 @@ use Storage;
 
 class StorageHelper
 {
-    public static function getImage($dir, $id) {
+    public static function getImage($dir, $id, $default = null) {
         $url = "$dir/$id";
         if (!Storage::disk('public')->exists($url)) {
+            if ($default) {
+                return $default;
+            }
             $url = "$dir/default.png";
         }
         return Storage::url($url);

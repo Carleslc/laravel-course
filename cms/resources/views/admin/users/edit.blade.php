@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="col-sm-3">
-        <img src="{{$user->avatar()}}" alt="Avatar" class="img-responsive img-rounded">
+        <img src="{{$user->avatar}}" alt="Avatar" class="img-responsive img-rounded">
     </div>
 
     <div class="col-sm-9">

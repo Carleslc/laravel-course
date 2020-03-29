@@ -18,7 +18,7 @@
         <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td><img height="50" src="{{$user->avatar()}}"></td>
+                    <td><img height="64" src="{{$user->avatar}}"></td>
                     <td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->role ? $user->role->name : ''}}</td>

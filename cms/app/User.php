@@ -5,6 +5,7 @@ namespace App;
 use App\Helpers\StorageHelper;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Str;
 
 class User extends Authenticatable
 {
@@ -49,7 +50,12 @@ class User extends Authenticatable
         return $this->role ? $this->role->name == 'admin' : false;
     }
 
-    public function avatar() {
-        return StorageHelper::getImage('avatars', $this->id);
+    public function getAvatarAttribute() {
+        return StorageHelper::getImage('avatars', $this->id, $this->gravatar);
+    }
+
+    public function getGravatarAttribute() {
+        $hash = md5(Str::lower($this->attributes['email']));
+        return "https://www.gravatar.com/avatar/$hash?s=64&r=pg&d=mysteryperson";
     }
 }

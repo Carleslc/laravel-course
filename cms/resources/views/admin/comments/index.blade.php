@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{$comment->author->name}}</td>
                     <td>{{Str::of($comment->content)->limit(30)}}</td>
-                    <td><a href="{{route('posts.show', $comment->post->id)}}">{{$comment->post->title}}</a></td>
+                    <td><a href="{{route('posts.show', $comment->post->slug)}}">{{$comment->post->title}}</a></td>
                     <td>
                         {!! Form::open(['method' => 'PUT', 'action' => ['CommentsController@update', $comment->id]]) !!}
                         <div class="form-group">

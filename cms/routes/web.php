@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/posts/{id}', 'AdminPostsController@show')->name('posts.show');
+Route::get('/posts/{slug}', 'AdminPostsController@show')->name('posts.show');
 
 Route::group(['middleware' => ['auth', 'can:viewAdmin,App\User']], function() {
     Route::get('/admin', function() {

@@ -23,9 +23,15 @@
                     <td>{{Str::of($post->content)->limit(30)}}</td>
                     <td>{{$post->author->name}}</td>
                     <td>{{$post->category ? $post->category->name : ''}}</td>
-                    <td><a href="{{route('posts.show', $post->id)}}">View Post</a></td>
+                    <td><a href="{{route('posts.show', $post->slug ?? Str::slug($post->title))}}">View Post</a></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-5">
+            {{$posts->render()}}
+        </div>
+    </div>
 @endsection

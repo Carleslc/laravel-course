@@ -22,7 +22,7 @@
                     <td>{{$reply->author->name}}</td>
                     <td>{{Str::of($reply->comment->content)->limit(30)}}</td>
                     <td>{{Str::of($reply->content)->limit(30)}}</td>
-                    <td><a href="{{route('posts.show', $reply->comment->post->id)}}">{{$reply->comment->post->title}}</a></td>
+                    <td><a href="{{route('posts.show', $reply->comment->post->slug)}}">{{$reply->comment->post->title}}</a></td>
                     <td>
                         {!! Form::open(['method' => 'PUT', 'action' => ['CommentRepliesController@update', $reply->id]]) !!}
                         <div class="form-group">
