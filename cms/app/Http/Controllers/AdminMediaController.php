@@ -53,8 +53,8 @@ class AdminMediaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $image = $request->input('image');
-        if (!Str::startsWith(basename($image), 'default.png')) {
+        $images = $request->images ?? [];
+        foreach ($images as $image) {
             Storage::disk('public')->delete($image);
         }
         return redirect(route('media.index'));
