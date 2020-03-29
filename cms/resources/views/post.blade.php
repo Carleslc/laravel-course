@@ -24,7 +24,7 @@
     <hr>
 
     <!-- Post Content -->
-    <p class="lead">{{$post->content}}</p>
+    <p id="post-content" class="lead">{!! $post->content !!}</p>
 
     <hr>
 
@@ -62,7 +62,7 @@
     @if (count($comments) > 0)
         @foreach ($comments as $comment)
             <div class="media">
-                <img class="media-object pull-left" src="{{$comment->author->avatar()}}" alt="Avatar" height="50">
+                <img class="media-object pull-left" src="{{$comment->author->avatar}}" alt="Avatar" height="50">
                 <div class="media-body">
                     <h4 class="media-heading">{{$comment->author->name}}
                         <small>{{$comment->created_at->diffForHumans()}}</small>
@@ -73,7 +73,7 @@
                         <!-- Nested Comment -->
                         @foreach ($comment->replies->where('is_active', true) as $reply)
                             <div class="media">
-                                <img class="media-object pull-left" src="{{$reply->author->avatar()}}" alt="Avatar" height="50">
+                                <img class="media-object pull-left" src="{{$reply->author->avatar}}" alt="Avatar" height="50">
                                 <div class="media-body">
                                     <h4 class="media-heading">{{$reply->author->name}}
                                         <small>{{$reply->created_at->diffForHumans()}}</small>

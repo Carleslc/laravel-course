@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+
+    @include('vendor.tinyeditor')
+
     {!! Form::open(['method' => 'POST', 'action' => 'AdminPostsController@store', 'files' => true]) !!}
 
     <div class="form-group">
