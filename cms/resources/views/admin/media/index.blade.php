@@ -18,9 +18,10 @@
 @section('scripts')
     <script>
         $('input[value=select-all]').click(function() {
+            let value = this.checked;
             let checkboxes = $(this).parents('table').first().find('td input[type=checkbox]');
             checkboxes.each(function() {
-                this.checked = !this.checked;
+                this.checked = value;
             });
         });
     </script>
