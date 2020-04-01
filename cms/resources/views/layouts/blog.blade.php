@@ -114,7 +114,7 @@
                                     <div class="col-lg-12">
                                         <ul class="list-unstyled">
                                             @foreach ($categories as $category)
-                                                <li>{{$category}}</li>
+                                                <li><a href="{{route('categories.show', $category)}}">{{$category}}</a></li>
                                             @endforeach
                                         </ul>
                                     </div>

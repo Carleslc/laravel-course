@@ -11,9 +11,17 @@
 |
 */
 
+use App\Http\Controllers\AdminCategoriesController;
+
 Auth::routes();
 
 Route::get('/', 'HomePostsController@index')->name('home');
+
+Route::get('/posts', function() {
+    return redirect(route('home'));
+});
+
+Route::get('/categories/{category}', 'HomePostsController@indexByCategory')->name('categories.show');
 
 Route::get('/posts/{slug}', 'AdminPostsController@show')->name('posts.show');
 
