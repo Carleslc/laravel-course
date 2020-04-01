@@ -63,7 +63,7 @@
                         <small>{{$comment->created_at->diffForHumans()}}</small>
                     </h4>
                     {{$comment->content}}
-                    <button class="toggle-reply btn btn-primary pull-right">Replies ({{count($comment->replies)}})</button>
+                    <button class="toggle-reply btn btn-primary pull-right">Replies ({{count($comment->replies->where('is_active', true))}})</button>
                     <div class="comment-reply-container" style="display: none; margin-top: 10px">
                         <!-- Nested Comment -->
                         @foreach ($comment->replies->where('is_active', true) as $reply)
