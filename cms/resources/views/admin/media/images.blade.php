@@ -12,7 +12,7 @@
             @foreach ($images as $image)
                 <tr>
                     <td>
-                        @if (!Str::startsWith(basename($image), 'default.png'))
+                        @if (basename($image) != 'default')
                             <input type="checkbox" name="images[]" value="{{$image}}">
                         @endif
                     </td>

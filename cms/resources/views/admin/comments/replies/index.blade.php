@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
+                <th>Created</th>
                 <th>Author</th>
                 <th>Reply To</th>
                 <th>Comment</th>

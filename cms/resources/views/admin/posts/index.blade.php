@@ -8,6 +8,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Created</th>
                 <th>Header</th>
                 <th>Title</th>
                 <th>Content</th>
@@ -18,6 +19,7 @@
         <tbody>
             @foreach ($posts as $post)
                 <tr>
+                    <td>{{$post->created_at->diffForHumans()}}</td>
                     <td><img height="50" src="{{$post->header}}"></td>
                     <td><a href="{{route('posts.edit', $post->id)}}">{{$post->title}}</a></td>
                     <td>{{Str::of($post->content)->limit(30)}}</td>
