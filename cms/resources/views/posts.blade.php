@@ -12,7 +12,7 @@
                 <a href="{{route('posts.show', $post->slug)}}">{{$post->title}}</a>
             </h2>
             <p class="lead">
-                by <i>{{$post->author->name}}</i>
+                by <a href="{{route('authors.show', $post->author->name)}}">{{$post->author->name}}</a>
             </p>
             <p><span class="glyphicon glyphicon-time"></span> Posted {{$post->created_at->diffForHumans()}}</p>
             <hr>

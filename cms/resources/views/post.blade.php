@@ -8,7 +8,7 @@
     <h1>{{$post->title}}</h1>
 
     <p class="lead">
-        by <i>{{$post->author->name}}</i>
+        by <a href="{{route('authors.show', $post->author->name)}}">{{$post->author->name}}</a>
     </p>
 
     <hr>

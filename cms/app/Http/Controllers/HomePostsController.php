@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\User;
 
 class HomePostsController extends Controller
 {
     public function index() {
-        return $this->showPosts(Post::paginate(3));
+        $posts = Post::paginate(3);
+        return view('posts', compact('posts'));
     }
 
     public function indexByCategory(String $categoryName) {
         $category = Category::where('name', $categoryName)->firstOrFail();
         $posts = Post::where('category_id', $category->id)->paginate(3);
-        return $this->showPosts($posts, $categoryName);
+        return view('posts', compact('posts'))->with('header', $categoryName);
     }
 
-    private function showPosts($posts, $header = 'Posts') {
-        $categories = Category::pluck('name');
-        return view('posts', compact('categories', 'posts', 'header'));
+    public function indexByAuthor(String $authorName) {
+        $user = User::where('name', $authorName)->firstOrFail();
+        $posts = Post::where('user_id', $user->id)->paginate(3);
+        return view('posts', compact('posts'))->with('header', $authorName);
     }
 }

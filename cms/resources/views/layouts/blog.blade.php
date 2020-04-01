@@ -107,20 +107,18 @@
                             <b><a href="https://github.com/Carleslc/laravel-course" target="_blank"><span class="fa fa-github"></span> GitHub</a></b>
                         </div>
                         <!-- Blog Categories Well -->
-                        @isset ($categories)
-                            <div class="well">
-                                <h4>Blog Categories</h4>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <ul class="list-unstyled">
-                                            @foreach ($categories as $category)
-                                                <li><a href="{{route('categories.show', $category)}}">{{$category}}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                        <div class="well">
+                            <h4>Blog Categories</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ul class="list-unstyled">
+                                        @foreach (App\Category::pluck('name') as $category)
+                                            <li><a href="{{route('categories.show', $category)}}">{{$category}}</a></li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                             </div>
-                        @endisset
+                        </div>
                     </div>
                 </div>
                 <hr>
