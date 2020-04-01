@@ -13,7 +13,7 @@ class StorageHelper
             if ($default) {
                 return $default;
             }
-            $url = "$dir/default.png";
+            $url = "$dir/default";
         }
         return Storage::url($url);
     }
