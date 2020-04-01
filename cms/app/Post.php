@@ -29,7 +29,7 @@ class Post extends Model
         return $this->hasMany('App\Comment');
     }
 
-    public function header() {
+    public function getHeaderAttribute() {
         return StorageHelper::getImage('headers', $this->id);
     }
 

@@ -2,14 +2,6 @@
 
 ## Visual Studio Code
 
-### General
-
-```bash
-Alt +/- # Move up/down current line/block
-```
-
-### Laravel
-
 [Setup](https://medium.com/@rohan_krishna/how-to-setup-visual-studio-code-for-laravel-php-276643c3013c)
 
 ```bash
@@ -80,7 +72,7 @@ php artisan make:request PostRequest
 
 ### [Authentication](https://laravel.com/docs/6.x/authentication)
 
-```php
+```bash
 composer require laravel/ui "^1.0" --dev
 php artisan ui vue --auth
 ```
@@ -92,7 +84,7 @@ php artisan make:policy PostPolicy --model=Post # Usage with 'can' middleware
 php artisan make:middleware RoleMiddleware # Fresh new middleware
 ```
 
-#### Maintenance mode
+#### Maintenance mode
 
 ```bash
 php artisan down

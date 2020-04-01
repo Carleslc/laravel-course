@@ -18,7 +18,7 @@
         <tbody>
             @foreach ($posts as $post)
                 <tr>
-                    <td><img height="50" src="{{$post->header()}}"></td>
+                    <td><img height="50" src="{{$post->header}}"></td>
                     <td><a href="{{route('posts.edit', $post->id)}}">{{$post->title}}</a></td>
                     <td>{{Str::of($post->content)->limit(30)}}</td>
                     <td>{{$post->author->name}}</td>

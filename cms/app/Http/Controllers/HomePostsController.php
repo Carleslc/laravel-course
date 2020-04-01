@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
+use App\Post;
+use Auth;
 
 class HomePostsController extends Controller
 {
     public function index() {
         $categories = Category::pluck('name');
-        return view('posts', compact('categories'));
+        $posts = Post::paginate(3);
+        if (!Auth::check()) {
+            session()->put('redirectTo', url()->current());
+        }
+        return view('posts', compact('categories', 'posts'));
     }
 }

@@ -27,4 +27,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-5">
+            {{$users->render()}}
+        </div>
+    </div>
 @endsection

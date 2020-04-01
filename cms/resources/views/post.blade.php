@@ -1,6 +1,4 @@
-@extends('layouts.blog-post')
-
-@include('categories')
+@extends('layouts.blog')
 
 @section('title')
     {{$post->title}}
@@ -21,7 +19,7 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-responsive" src="{{$post->header()}}" alt="Header">
+    <img class="img-responsive" src="{{$post->header}}" alt="Header">
 
     <hr>
 
@@ -34,11 +32,6 @@
 
     <!-- Comments Form -->
     <div class="well">
-        @if (session('commentAdded'))
-            <div class="alert alert-info">
-                <i>Comment added. Waiting for approval.</i>
-            </div>
-        @endif
         @auth
             <h4>Leave a Comment:</h4>
             {!! Form::open(['method' => 'POST', 'action' => 'CommentsController@store']) !!}
@@ -70,7 +63,7 @@
                         <small>{{$comment->created_at->diffForHumans()}}</small>
                     </h4>
                     {{$comment->content}}
-                    <button class="toggle-reply btn btn-primary pull-right">Replies</button>
+                    <button class="toggle-reply btn btn-primary pull-right">Replies ({{count($comment->replies)}})</button>
                     <div class="comment-reply-container" style="display: none; margin-top: 10px">
                         <!-- Nested Comment -->
                         @foreach ($comment->replies->where('is_active', true) as $reply)

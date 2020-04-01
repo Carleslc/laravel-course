@@ -8,6 +8,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Date</th>
                 <th>Author</th>
                 <th>Reply To</th>
                 <th>Comment</th>
@@ -19,6 +20,7 @@
         <tbody>
             @foreach ($replies as $reply)
                 <tr>
+                    <td>{{$reply->created_at->diffForHumans()}}</td>
                     <td>{{$reply->author->name}}</td>
                     <td>{{Str::of($reply->comment->content)->limit(30)}}</td>
                     <td>{{Str::of($reply->content)->limit(30)}}</td>
@@ -47,4 +49,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-5">
+            {{$replies->render()}}
+        </div>
+    </div>
 @endsection

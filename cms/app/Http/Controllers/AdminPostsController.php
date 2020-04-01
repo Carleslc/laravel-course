@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Comment;
 use App\Helpers\StorageHelper;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use Auth;
-use Illuminate\Http\Request;
 
 class AdminPostsController extends Controller
 {

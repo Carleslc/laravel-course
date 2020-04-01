@@ -8,6 +8,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Date</th>
                 <th>Author</th>
                 <th>Comment</th>
                 <th>Post</th>
@@ -18,6 +19,7 @@
         <tbody>
             @foreach ($comments as $comment)
                 <tr>
+                    <td>{{$comment->created_at->diffForHumans()}}</td>
                     <td>{{$comment->author->name}}</td>
                     <td>{{Str::of($comment->content)->limit(30)}}</td>
                     <td><a href="{{route('posts.show', $comment->post->slug)}}">{{$comment->post->title}}</a></td>
@@ -45,4 +47,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-5">
+            {{$comments->render()}}
+        </div>
+    </div>
 @endsection

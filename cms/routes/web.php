@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', function() {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/posts', 'HomePostsController@index')->name('home.posts.index');
+Route::get('/', 'HomePostsController@index')->name('home');
 
 Route::get('/posts/{slug}', 'AdminPostsController@show')->name('posts.show');
 

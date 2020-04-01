@@ -20,7 +20,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comment::all()->sortByDesc('created_at');
+        $comments = Comment::orderBy('created_at', 'DESC')->paginate(10);
         return view('admin.comments.index', compact('comments'));
     }
 
@@ -35,7 +35,7 @@ class CommentsController extends Controller
         $comment = new Comment($request->all());
         $comment->author()->associate(Auth::user());
         $comment->save();
-        session()->flash('commentAdded', true);
+        session()->flash('status', 'Comment added. Waiting for approval.');
         return redirect()->back();
     }
 
