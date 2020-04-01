@@ -1,4 +1,4 @@
-# laravel-course
+**[Take this course on Udemy](https://www.udemy.com/course/php-with-laravel-for-beginners-become-a-master-in-laravel/)**
 
 ## Visual Studio Code
 
@@ -70,7 +70,7 @@ php artisan tinker
 php artisan make:request PostRequest
 ```
 
-### [Authentication](https://laravel.com/docs/6.x/authentication)
+### [Authentication](https://laravel.com/docs/6.x/authentication)
 
 ```bash
 composer require laravel/ui "^1.0" --dev
@@ -91,7 +91,7 @@ php artisan down
 php artisan up
 ```
 
-### [SCSS](https://laravel.com/docs/master/mix#sass)
+### [SCSS](https://laravel.com/docs/master/mix#sass)
 
 ```bash
 # resources/sass to public/css (as per webpack.mix.js)
@@ -99,7 +99,7 @@ npm run dev
 npm run watch
 ```
 
-### [Seeding](https://laravel.com/docs/master/seeding)
+### [Seeding](https://laravel.com/docs/master/seeding)
 
 ```bash
 php artisan make:seeder UsersTableSeeder
