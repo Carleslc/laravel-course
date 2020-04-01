@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@yield('title', 'Blog Post')</title>
+    <title>@yield('title', config('app.name', 'Blog'))</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
@@ -39,6 +39,7 @@
 
 <body>
 
+    <!-- Page Content -->
     <div class="content">
         <div class="container">
             @if (session('status'))
@@ -46,13 +47,42 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <!-- Page Content -->
             <div class="row">
-                <!-- Blog Post Content Column -->
-                <div class="col-lg-8">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+
+                    <h1 class="page-header">
+                        Posts
+                    </h1>
+
                     <!-- Blog Post -->
-                    @yield('content')
+                    <h2>
+                        <a href="#">Blog Post Title</a>
+                    </h2>
+                    <p class="lead">
+                        by <a href="index.php">Start Bootstrap</a>
+                    </p>
+                    <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
+                    <hr>
+                    <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
+                    <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+                    <hr>
+
+                    <!-- Pager -->
+                    <ul class="pager">
+                        <li class="previous">
+                            <a href="#">&larr; Older</a>
+                        </li>
+                        <li class="next">
+                            <a href="#">Newer &rarr;</a>
+                        </li>
+                    </ul>
+
                 </div>
+
                 <!-- Blog Sidebar Widgets Column -->
                 <div class="col-md-4">
                     <!-- Blog Categories Well -->
@@ -68,9 +98,12 @@
                         <!-- /.row -->
                     </div>
                 </div>
+
             </div>
             <!-- /.row -->
+
             <hr>
+
             <!-- Footer -->
             <footer>
                 <div class="row">
@@ -84,6 +117,7 @@
                 </div>
                 <!-- /.row -->
             </footer>
+
         </div>
         <!-- /.container -->
     </div>

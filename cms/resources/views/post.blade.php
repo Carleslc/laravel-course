@@ -1,5 +1,7 @@
 @extends('layouts.blog-post')
 
+@include('categories')
+
 @section('title')
     {{$post->title}}
 @endsection
@@ -8,7 +10,7 @@
     <h1>{{$post->title}}</h1>
 
     <p class="lead">
-        by <a href="#">{{$post->author->name}}</a>
+        by <i>{{$post->author->name}}</i>
     </p>
 
     <hr>
@@ -24,7 +26,7 @@
     <hr>
 
     <!-- Post Content -->
-    <p id="post-content" class="lead">{!! $post->content !!}</p>
+    <p id="post-content" class="lead">{!! nl2br($post->content) !!}</p>
 
     <hr>
 
@@ -102,12 +104,6 @@
             <i>No comments yet.</i>
         </div>
     @endif
-@endsection
-
-@section('categories')
-    @foreach ($categories as $category)
-        <li><a href="#">{{$category}}</a></li>
-    @endforeach
 @endsection
 
 @section('scripts')

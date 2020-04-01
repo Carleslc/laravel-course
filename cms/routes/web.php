@@ -17,14 +17,12 @@ Route::get('/', function() {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/posts', 'HomePostsController@index')->name('home.posts.index');
 
 Route::get('/posts/{slug}', 'AdminPostsController@show')->name('posts.show');
 
 Route::group(['middleware' => ['auth', 'can:viewAdmin,App\User']], function() {
-    Route::get('/admin', function() {
-        return view('admin.index');
-    })->name('admin');
+    Route::get('/admin', 'AdminController@index')->name('admin');
 
     Route::resource('admin/users', 'AdminUsersController')->except('show');
 

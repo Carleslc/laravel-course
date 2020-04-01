@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
 
     public function isAdmin() {
-        return $this->role ? $this->role->name == 'admin' : false;
+        return $this->role ? Str::lower($this->role->name) == 'admin' : false;
     }
 
     public function getAvatarAttribute() {

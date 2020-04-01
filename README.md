@@ -106,3 +106,12 @@ php artisan up
 npm run dev
 npm run watch
 ```
+
+### [Seeding](https://laravel.com/docs/master/seeding)
+
+```bash
+php artisan make:seeder UsersTableSeeder
+php artisan make:factory PostFactory
+php artisan db:seed
+```
+
