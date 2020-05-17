@@ -1,5 +1,18 @@
 **[Take this course on Udemy](https://www.udemy.com/course/php-with-laravel-for-beginners-become-a-master-in-laravel/)**
 
+## Demo
+
+https://laravel.carleslc.me/
+
+### Admin dashboard
+
+https://laravel.carleslc.me/admin
+
+```php
+admin@example.com
+DDcq9qNE
+```
+
 ## Visual Studio Code
 
 [Setup](https://medium.com/@rohan_krishna/how-to-setup-visual-studio-code-for-laravel-php-276643c3013c)
