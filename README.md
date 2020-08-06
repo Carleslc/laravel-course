@@ -10,7 +10,7 @@ https://laravel.carleslc.me/admin
 
 ```php
 admin@example.com
-DDcq9qNE
+WqvmeIzs
 ```
 
 ## Visual Studio Code
